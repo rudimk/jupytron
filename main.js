@@ -11,35 +11,24 @@ let win;
 
 function createWindow() {
   
-exec('jupyter lab --no-browser', function callback(error, stdout, stderr){
+  // Create a subprocess to initialize the Jupyter Lab.
+  exec('jupyter lab --no-browser', function callback(error, stdout, stderr){
     console.log(stdout)
 
-});
+  });
 
-setTimeout(function() { 
-  win = new BrowserWindow({width: 800, height: 600});
-  win.loadURL(`file://${__dirname}/index.html`);
-  win.on('closed', () => {
+  // Instantiate a window object after a 5 second delay, to allow for the Jupyter server to start up.
+  setTimeout(function() { 
+    win = new BrowserWindow({width: 800, height: 600});
+    win.loadURL(`file://${__dirname}/index.html`);
+    win.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null;
-  });
-}, 5000);
+    });
+  }, 5000);
 
-    
-  // Create the browser window.
-  
-
-  
-  // and load the index.html of the app.
-  
-
-  // Open the DevTools.
-  //win.webContents.openDevTools();
-
-  // Emitted when the window is closed.
-  
 }
 
 // This method will be called when Electron has finished
@@ -63,6 +52,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
